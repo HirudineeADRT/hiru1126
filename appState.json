@@ -1,0 +1,139 @@
+{
+  "EDITOR_STATE": {
+    "allProjectFiles": {
+      "958dfdd4-1580-4a98-b00d-848550e4833d": {
+        "id": "958dfdd4-1580-4a98-b00d-848550e4833d",
+        "parent": null,
+        "name": "hiru1126",
+        "type": "DIRECTORY",
+        "isDirectory": true,
+        "children": [
+          "365911c4-45d2-4573-b257-474631e57eb5",
+          "17e35c90-3bd5-46b7-9863-debd673e2d04"
+        ],
+        "isRemovable": false,
+        "filePath": "hiru1126"
+      },
+      "365911c4-45d2-4573-b257-474631e57eb5": {
+        "id": "365911c4-45d2-4573-b257-474631e57eb5",
+        "parent": "958dfdd4-1580-4a98-b00d-848550e4833d",
+        "name": "function.js",
+        "type": "JS_LAMBDA",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "hiru1126/function.js",
+        "code": "let google = require('googleapis').google;\nlet _auth = require('./Authorizer');\nconst storage = google.storage('v1');\n\nexports.handler = function (request, response) {\n    storage.objects.list({\n        bucket: 'hirutest01',\n        maxResults: 10,\n        prefix: ''\n    })\n        .then(response => {\n            console.log(response.data);           // successful response\n            /*\n    \n            WARNING: response.data.items will be missing altogether (instead of being empty) if there are no matches!  \n    \n            response.data = {\n                \"kind\": \"storage#objects\",\n                \"items\": [\n                    {\n                        \"kind\": \"storage#object\",\n                        \"id\": \"<bucket>/<object>/<timestamp>\",\n                        \"selfLink\": \"https://www.googleapis.com/storage/v1/b/<bucket>/o/<object>\",\n                        \"name\": \"<object>\",\n                        \"bucket\": \"<bucket>\",\n                        \"contentType\": \"<content-type>\",\n                        \"timeCreated\": \"<yyyy-MM-ddTHH:mm:ss.###Z>\",\n                        \"updated\": \"<yyyy-MM-ddTHH:mm:ss.###Z>\",\n                        \"size\": \"<bytes>\",\n                        \"md5Hash\": \"<hash>\",\n                        \"metadata\": {\n                            \"<key1>\": \"<val1>\",\n                            \"<key2>\": \"<val2>\"\n                        },\n                        \"crc32c\": \"<crc>\",\n                        \"etag\": \"<etag>\"\n                        // , ...\n                    }\n                    // , ...\n                ]\n            }\n            */\n        })\n        .catch(err => {\n            console.log(err, err.stack); // an error occurred\n        });\n\n    response.send({ \"message\": \"Successfully executed\" });\n}",
+        "config": {
+          "runtime": "nodejs8",
+          "timeout": 60,
+          "memory": 128,
+          "triggerType": 0,
+          "handler": "handler"
+        },
+        "triggers": [
+          {
+            "resourceName": "http-trigger",
+            "config": {}
+          }
+        ],
+        "testCases": {
+          "30af915c-7057-4bcd-867e-4732bc659eb8": {
+            "id": "30af915c-7057-4bcd-867e-4732bc659eb8",
+            "name": "Test event",
+            "functionId": "365911c4-45d2-4573-b257-474631e57eb5",
+            "event": "{\r\n    \"key1\": \"value1\",\r\n    \"key2\": \"value2\",\r\n    \"key3\": \"value3\"\r\n}",
+            "eventTemplate": "hello-world"
+          }
+        }
+      },
+      "c5fc7311-cfee-42b6-9293-d2ca608f18ac": {
+        "id": "c5fc7311-cfee-42b6-9293-d2ca608f18ac",
+        "parent": null,
+        "name": "index.js",
+        "type": "JS_FILE",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": false,
+        "filePath": "index.js",
+        "code": "// This file is used to register all your cloud functions in GCP.\n// DO NOT EDIT/DELETE THIS, UNLESS YOU KNOW WHAT YOU ARE DOING.\n\nexports.hiru1126function = require(\"./hiru1126/function.js\").handler;"
+      },
+      "d6a7ea1e-0fa6-4a8d-8ad0-b47696b3f367": {
+        "id": "d6a7ea1e-0fa6-4a8d-8ad0-b47696b3f367",
+        "parent": null,
+        "name": "main.py",
+        "type": "PYTHON_FILE",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": false,
+        "filePath": "main.py",
+        "code": "# This file is used to register all your cloud functions in GCP.\n# DO NOT EDIT/DELETE THIS, UNLESS YOU KNOW WHAT YOU ARE DOING.\n\n"
+      },
+      "17e35c90-3bd5-46b7-9863-debd673e2d04": {
+        "id": "17e35c90-3bd5-46b7-9863-debd673e2d04",
+        "parent": "958dfdd4-1580-4a98-b00d-848550e4833d",
+        "name": "Authorizer.js",
+        "type": "JS_FILE",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "hiru1126/Authorizer.js",
+        "code": "const google = require(\"googleapis\").google;\n\ngoogle.options({auth: new google.auth.Compute()});"
+      }
+    },
+    "rootNode": "958dfdd4-1580-4a98-b00d-848550e4833d",
+    "openFiles": [
+      "365911c4-45d2-4573-b257-474631e57eb5"
+    ],
+    "currentFileId": "365911c4-45d2-4573-b257-474631e57eb5",
+    "resources": {
+      "http-trigger": {
+        "name": "http-trigger",
+        "type": "http-trigger",
+        "config": {}
+      },
+      "storagehirutest01": {
+        "name": "storagehirutest01",
+        "type": "CloudStorage",
+        "config": {
+          "mode": 1,
+          "bucket": {
+            "name": "hirutest01"
+          }
+        }
+      }
+    },
+    "customTemplate": {
+      "dialect": null,
+      "definitions": null
+    },
+    "envVariables": [],
+    "packageJSON": {
+      "dependencies": {
+        "googleapis": {
+          "name": "googleapis",
+          "language": "javascript",
+          "version": "29.0.0",
+          "dev": false,
+          "notRemovable": false
+        }
+      }
+    }
+  },
+  "PROJECT_META": {
+    "projectName": "hiru1126",
+    "projectDescription": "",
+    "projectVersion": "1.0.0",
+    "projectRegion": "us-east1",
+    "platform": "GCP",
+    "platformRegions": {},
+    "lastSave": 1574754000133
+  },
+  "VCS_STATE": {
+    "provider": "GitHub",
+    "repo": {
+      "name": "hiru1126",
+      "url": "https://github.com/HirudineeADRT/hiru1126"
+    }
+  }
+}
